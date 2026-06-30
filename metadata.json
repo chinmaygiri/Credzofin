@@ -1,0 +1,6 @@
+{
+  "name": "Credzofinance",
+  "description": "All-in-One Personal Finance Platform. Borrow, Invest, and Insure securely with customized calculators and real-time interest estimates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
