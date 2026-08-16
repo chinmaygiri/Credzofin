@@ -28,8 +28,10 @@ import {
   Phone,
   Mail,
   Star,
-  Zap
+  Zap,
+  CreditCard
 } from "lucide-react";
+import { CredzoLogo, CredzoIcon } from "./components/Logo";
 
 export default function App() {
   // Mobile menu state
@@ -226,14 +228,8 @@ export default function App() {
         <div id="header-container" className="flex justify-between items-center px-4 md:px-16 h-20 w-full max-w-7xl mx-auto">
           
           {/* Logo / Brand */}
-          <div id="brand-logo" className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-black text-lg shadow-md shadow-primary/20">
-              cz
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-primary">Credzofinance</span>
-              <span className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider -mt-1">NBFC Partner</span>
-            </div>
+          <div id="brand-logo" className="flex items-center cursor-pointer hover:opacity-90 transition-opacity" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <CredzoLogo size="md" />
           </div>
 
           {/* Desktop Navigation */}
@@ -281,7 +277,7 @@ export default function App() {
         <div id="mobile-drawer-backdrop" className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden transition-all duration-300">
           <div id="mobile-drawer" className="fixed right-0 top-0 h-full w-4/5 max-w-[320px] bg-white shadow-2xl p-6 flex flex-col gap-6 z-50 transform translate-x-0 transition-transform duration-300">
             <div className="flex justify-between items-center pb-4 border-b border-gray-100">
-              <span className="font-bold text-lg text-primary">Menu</span>
+              <CredzoLogo size="sm" />
               <button 
                 id="close-mobile-drawer"
                 onClick={() => setIsMobileMenuOpen(false)} 
@@ -428,80 +424,117 @@ export default function App() {
             <div className="lg:col-span-5 flex justify-center items-center relative py-4">
               <div className="absolute inset-0 bg-[#254adf]/20 blur-3xl rounded-full scale-75 animate-pulse"></div>
               
-              {/* Phone Frame */}
-              <div className="relative w-[300px] h-[600px] bg-slate-950 rounded-[45px] p-3 shadow-2xl border-4 border-slate-800 ring-4 ring-slate-900 transition-transform duration-500 hover:rotate-2">
+              {/* Phone Frame (Light Theme) */}
+              <div className="relative w-[300px] h-[600px] bg-slate-100 rounded-[45px] p-3 shadow-2xl border-4 border-slate-200 ring-4 ring-white/60 transition-transform duration-500 hover:rotate-2">
                 
                 {/* Screen Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-950 rounded-b-2xl z-30 flex items-center justify-center">
-                  <div className="w-12 h-1 bg-slate-800 rounded-full"></div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-5 bg-slate-900 rounded-b-2xl z-30 flex items-center justify-center">
+                  <div className="w-10 h-1 bg-slate-700 rounded-full"></div>
                 </div>
 
-                {/* Internal Screen */}
-                <div className="w-full h-full rounded-[35px] overflow-hidden bg-slate-900 text-slate-100 flex flex-col justify-between p-4 pt-8 text-[12px] relative">
+                {/* Internal Screen (Light Theme) */}
+                <div className="w-full h-full rounded-[35px] overflow-hidden bg-[#f8fafc] text-slate-900 flex flex-col justify-between p-4 pt-7 text-[12px] relative shadow-inner">
                   
                   {/* Internal App Header */}
-                  <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-                    <div className="flex items-center gap-1">
-                      <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] text-white font-extrabold">cz</div>
-                      <span className="font-bold text-[10px]">Credzo Dashboard</span>
+                  <div className="flex justify-between items-center pb-2 border-b border-slate-200">
+                    <div className="flex items-center gap-1.5">
+                      <CredzoIcon className="w-5 h-5" color="#0038D1" />
+                      <span className="font-bold text-[11px] text-slate-900">Credzo Credit</span>
                     </div>
-                    <span className="text-[9px] text-emerald-400 font-bold tracking-wider">● SYSTEM LIVE</span>
+                    <span className="text-[9px] text-emerald-600 font-extrabold tracking-wider bg-emerald-50 px-1.5 py-0.5 rounded-full border border-emerald-200">● LIVE</span>
                   </div>
 
                   {/* App Balance and Quick Stats */}
-                  <div className="flex flex-col gap-3 py-2 flex-grow overflow-y-auto hide-scrollbar">
+                  <div className="flex flex-col gap-2.5 py-2 flex-grow overflow-y-auto hide-scrollbar">
                     
-                    {/* Welcome */}
-                    <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
-                      <p className="text-slate-400">Total Asset Portfolio</p>
-                      <h4 className="text-lg font-bold text-white mt-0.5">{formatCurrency(sipTotalValue || 650000)}</h4>
-                      <p className="text-[10px] text-emerald-400 mt-1">▲ Net Growth +14.5% This Quarter</p>
-                    </div>
-
-                    {/* Preapproved Credit Offer */}
-                    <div className="bg-gradient-to-r from-primary to-[#254adf] p-3 rounded-xl shadow-md">
-                      <p className="text-white/80">Your Pre-Approved Loan Offer</p>
-                      <h4 className="text-base font-bold text-white mt-0.5">{formatCurrency(loanAmount)}</h4>
-                      <p className="text-[9px] text-primary-fixed font-semibold mt-1">EMI: {formatCurrency(emi)}/mo • {loanTenure} Years</p>
-                    </div>
-
-                    {/* Active Insurance Policy */}
-                    <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50">
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="font-bold">Active Life Shield</span>
-                        <span className="text-sky-400">Active</span>
+                    {/* Pre-approved Loan Limit */}
+                    <div className="bg-gradient-to-br from-[#0038D1] to-[#002699] p-3.5 rounded-xl shadow-md text-white relative overflow-hidden">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="text-white/80 text-[10px] font-medium">Pre-Approved Loan Limit</p>
+                          <h4 className="text-lg font-extrabold text-white mt-0.5">{formatCurrency(loanAmount || 500000)}</h4>
+                        </div>
+                        <span className="bg-emerald-400/20 text-emerald-200 border border-emerald-300/40 text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                          Instant
+                        </span>
                       </div>
-                      <p className="text-slate-400">Sum Assured: {formatCurrency(insCover)}</p>
-                      <p className="text-slate-400">Monthly Premium: {formatCurrency(insPremium)}</p>
+                      <div className="mt-2.5 pt-2 border-t border-white/20 flex items-center justify-between text-[9px] text-white/90">
+                        <span>Interest from {interestRate || 10.5}% p.a.</span>
+                        <span className="font-bold text-white bg-white/20 px-1.5 py-0.5 rounded">0 Collateral</span>
+                      </div>
+                    </div>
+
+                    {/* Active Loan & EMI Details */}
+                    <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-[11px] text-slate-900">Monthly EMI Breakdown</span>
+                        <span className="text-[9px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Active</span>
+                      </div>
+                      <div className="flex justify-between items-baseline mt-1">
+                        <div>
+                          <p className="text-[10px] text-slate-500">Calculated EMI</p>
+                          <p className="text-sm font-bold text-slate-900">{formatCurrency(emi)}<span className="text-[10px] text-slate-400 font-normal">/mo</span></p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-[10px] text-slate-500">Tenure Period</p>
+                          <p className="text-xs font-bold text-slate-700">{loanTenure} Years ({loanTenure * 12} Mos)</p>
+                        </div>
+                      </div>
+                      <div className="w-full bg-slate-100 h-2 rounded-full mt-2 overflow-hidden border border-slate-200/60">
+                        <div className="bg-[#0038D1] h-full rounded-full w-3/4"></div>
+                      </div>
+                      <p className="text-[9px] text-slate-500 mt-1.5 flex justify-between font-medium">
+                        <span>Disbursal: In 2 Mins</span>
+                        <span>Repayment: Auto-Debit</span>
+                      </p>
+                    </div>
+
+                    {/* Quick Loan Types */}
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm">
+                      <p className="text-[10px] font-bold text-slate-700 mb-1.5">Instant Loan Products</p>
+                      <div className="grid grid-cols-3 gap-1.5 text-center">
+                        <div className="bg-slate-50 p-1.5 rounded-lg border border-slate-200/80 hover:bg-primary/5 transition-colors">
+                          <p className="font-bold text-slate-900 text-[10px]">Personal</p>
+                          <p className="text-[8px] text-slate-500">Up to ₹10L</p>
+                        </div>
+                        <div className="bg-slate-50 p-1.5 rounded-lg border border-slate-200/80 hover:bg-primary/5 transition-colors">
+                          <p className="font-bold text-slate-900 text-[10px]">Business</p>
+                          <p className="text-[8px] text-slate-500">Up to ₹50L</p>
+                        </div>
+                        <div className="bg-slate-50 p-1.5 rounded-lg border border-slate-200/80 hover:bg-primary/5 transition-colors">
+                          <p className="font-bold text-slate-900 text-[10px]">Education</p>
+                          <p className="text-[8px] text-slate-500">Low ROI</p>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Quick Tools shortcuts inside phone */}
                     <div className="grid grid-cols-2 gap-2 text-center">
-                      <div className="bg-slate-800/40 p-2 rounded-lg border border-slate-800">
-                        <p className="text-slate-400">CIBIL Score</p>
-                        <p className="font-bold text-white text-sm">785</p>
+                      <div className="bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
+                        <p className="text-slate-500 text-[9px]">CIBIL Score</p>
+                        <p className="font-bold text-slate-900 text-xs">785 <span className="text-[8px] text-emerald-600 font-semibold">(Excellent)</span></p>
                       </div>
-                      <div className="bg-slate-800/40 p-2 rounded-lg border border-slate-800">
-                        <p className="text-slate-400">KYC Status</p>
-                        <p className="font-bold text-emerald-400 text-sm">Verified</p>
+                      <div className="bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
+                        <p className="text-slate-500 text-[9px]">Loan Sanction</p>
+                        <p className="font-bold text-emerald-600 text-xs">Pre-Approved</p>
                       </div>
                     </div>
 
                   </div>
 
                   {/* App Navigation Bar inside phone */}
-                  <div className="bg-slate-950 p-2 rounded-xl flex justify-around items-center border border-slate-800">
-                    <span className="text-primary font-bold text-[9px]">Home</span>
-                    <span className="text-slate-500 text-[9px]">Wealth</span>
-                    <span className="text-slate-500 text-[9px]">Credit</span>
-                    <span className="text-slate-500 text-[9px]">Support</span>
+                  <div className="bg-white p-2 rounded-xl flex justify-around items-center border border-slate-200 shadow-sm">
+                    <span className="text-[#0038D1] font-bold text-[9px]">Loans</span>
+                    <span className="text-slate-400 text-[9px]">Apply</span>
+                    <span className="text-slate-400 text-[9px]">EMI Calc</span>
+                    <span className="text-slate-400 text-[9px]">Profile</span>
                   </div>
 
                 </div>
 
                 {/* Physical Controls Mock */}
-                <div className="absolute -left-2 top-24 w-1.5 h-12 bg-slate-800 rounded-l-md"></div>
-                <div className="absolute -right-2 top-32 w-1.5 h-20 bg-slate-800 rounded-r-md"></div>
+                <div className="absolute -left-2 top-24 w-1.5 h-12 bg-slate-300 rounded-l-md"></div>
+                <div className="absolute -right-2 top-32 w-1.5 h-20 bg-slate-300 rounded-r-md"></div>
               </div>
 
               {/* Floating micro badges */}
@@ -511,13 +544,13 @@ export default function App() {
               </div>
 
               <div className="absolute -left-6 bottom-12 bg-white text-slate-800 p-3 rounded-xl shadow-lg border border-gray-100 flex items-center gap-2 hover:scale-105 transition-transform duration-300">
-                <Coins className="w-4 h-4 text-primary" />
-                <span className="text-xs font-bold">Gold from ₹10</span>
+                <CreditCard className="w-4 h-4 text-primary" />
+                <span className="text-xs font-bold">Instant Disbursal</span>
               </div>
 
               <div className="absolute -left-12 top-16 bg-white text-slate-800 p-3 rounded-xl shadow-lg border border-gray-100 flex items-center gap-2 hover:scale-105 transition-transform duration-300">
                 <Zap className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse" />
-                <span className="text-xs font-bold">2-Min Approval</span>
+                <span className="text-xs font-bold">Instant Approval</span>
               </div>
 
               <div className="absolute -right-14 bottom-24 bg-white text-slate-800 p-3 rounded-xl shadow-lg border border-gray-100 flex items-center gap-2 hover:scale-105 transition-transform duration-300">
@@ -1281,7 +1314,7 @@ export default function App() {
         <div className="w-full px-4 md:px-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 max-w-[1280px] mx-auto py-4 border-b border-white/10">
           
           <div className="flex flex-col gap-4 col-span-1 md:col-span-1 md:mr-auto md:pr-12">
-            <span className="font-bold text-2xl text-white">Credzofinance</span>
+            <CredzoLogo variant="white" size="md" />
             <div className="flex flex-col gap-2 text-xs text-white/70">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-white/60" />
@@ -1335,9 +1368,9 @@ export default function App() {
         </div>
 
         <div className="w-full max-w-[1000px] mx-auto px-6 py-5 flex flex-col items-center justify-center gap-2.5 text-xs text-white/60 bg-white/5 border border-white/10 rounded-2xl mt-8 text-center">
-          <p className="font-medium text-white/80">© 2024 Credzofinance. RBI Regulated NBFC Partner. All Rights Reserved.</p>
-          <p className="opacity-90">RBI Registration No: N-05.00642 • Subject to approval guidelines</p>
-          <p className="opacity-75">Corporate Identification Number: U65910MH2024PTC416480</p>
+          <p className="font-medium text-white/80">© 2026 Credzofinance. All Rights Reserved.</p>
+          <p className="opacity-90">Bhubaneswar, Odisha, India</p>
+          <p className="opacity-75">Corporate Identification Number: U64990OD2026PTC053970</p>
         </div>
       </footer>
 
@@ -1361,11 +1394,9 @@ export default function App() {
             {activeModal === "login" && (
               <div className="p-8">
                 <div className="text-center mb-6">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto mb-3">
-                    <User className="w-6 h-6" />
-                  </div>
+                  <CredzoLogo size="md" className="mx-auto mb-3" />
                   <h3 className="text-xl font-bold text-gray-900">Sign in to Credzo</h3>
-                  <p className="text-xs text-gray-500 mt-1">Access your secure borrowing &amp; investment dash</p>
+                  <p className="text-xs text-gray-500 mt-1">Access your secure borrowing &amp; credit dashboard</p>
                 </div>
 
                 {authSuccessMsg ? (
@@ -1414,9 +1445,7 @@ export default function App() {
             {activeModal === "signup" && (
               <div className="p-8">
                 <div className="text-center mb-6">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto mb-3">
-                    <Sparkles className="w-6 h-6" />
-                  </div>
+                  <CredzoLogo size="md" className="mx-auto mb-3" />
                   <h3 className="text-xl font-bold text-gray-900">Create Free Account</h3>
                   <p className="text-xs text-gray-500 mt-1">Get pre-approved in under 2 minutes</p>
                 </div>
